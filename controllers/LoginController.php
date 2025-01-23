@@ -41,7 +41,9 @@ class LoginController{
                 } else {
                     //Hashear el password
                     $usuario->password = Hash::make($usuario->password);
-                    
+
+                    //Generar un token unico
+                    $usuario->crearToken();
                     $usuario->crear();
                 }
                 

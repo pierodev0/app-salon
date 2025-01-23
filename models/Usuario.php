@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use Ramsey\Uuid\Uuid;
+
 class Usuario extends ActiveRecord
 {
     protected static $tabla = 'usuarios';
@@ -69,6 +71,10 @@ class Usuario extends ActiveRecord
         }
 
         return $resultado;
+    }
+
+    public function crearToken(){
+        $this->token = Uuid::uuid4()->toString();
     }
 
 
