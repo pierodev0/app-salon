@@ -100,6 +100,21 @@ class LoginController
             $error = true;
         }
 
+        if(isMethod('POST')){
+            $password = new Usuario($_POST);
+            $alertas = $password->validarPassword();
+
+            if(empty($alertas)){
+                $usuario->password = null;
+
+                $usuario->password = Hash::make($password->password);
+                $usuario->token = null;
+                $resultado = $usuario->guardar();
+                if($resultado){
+                    redirect('/');
+                }
+            }
+        }
 
 
        
