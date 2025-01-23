@@ -1,9 +1,15 @@
 <h1 class="nombre-pagina">Crear nueva Cita</h1>
 <p class="descripcion-pagina">Elige tus servicios</p>
 <div class="app">
+    <div class="tabs">
+        <button class="actual" type="button" data-paso="1">Servicios</button>
+        <button type="button" data-paso="2">Información Cita</button>
+        <button type="button" data-paso="3">Resumen</button>
+    </div>
+    
     <div id="paso-1" class="seccion">
         <h2>Servicios</h2>
-        <p>Elige los servicios que deseas</p>
+        <p class="text-center">Elige los servicios que deseas</p>
         <div id="servicios" class="listado-servicios"></div>
     </div>
 
