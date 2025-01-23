@@ -6,6 +6,8 @@ import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
 import terser from 'gulp-terser'
 import sharp from 'sharp'
+import {deleteAsync as del} from 'del';
+
 
 const sass = gulpSass(dartSass)
 
@@ -66,6 +68,9 @@ function procesarImagenes(file, outputSubDir) {
         sharp(file).avif().toFile(outputFileAvif);
     }
 }
+function cleanBuild() {
+    return del(['public/build/**/*'], { force: true });
+}
 
 export function dev() {
     watch( paths.scss, css );
@@ -73,4 +78,4 @@ export function dev() {
     watch('src/img/**/*.{png,jpg}', imagenes)
 }
 
-export default series( js, css, imagenes, dev )
+export default series( cleanBuild,js, css, imagenes, dev )
