@@ -36,7 +36,6 @@ class LoginController
                             dump("Admin");
                             redirect('/admin');
                         } else {
-                            dump("User");
                             redirect('/cita');
                         }
                     } 
