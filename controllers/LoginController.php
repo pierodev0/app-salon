@@ -61,6 +61,17 @@ class LoginController
             $auth = new Usuario($_POST);
             $alertas = $auth->validarEmail();
             if(empty($alertas)){
+                $usuario = Usuario::where('email', $auth->email);
+                if($usuario && $usuario->confirmado === '1'){
+                   $usuario->crearToken();
+                   $usuario->guardar();
+
+                   //Enviar email
+                   Usuario::setAlerta('exito', 'Revisa tu email para reiniciar tu password');
+
+                } else {
+                    Usuario::setAlerta('error', 'El usuario no existe o no esta confirmado');
+                }
             }
         }
         
