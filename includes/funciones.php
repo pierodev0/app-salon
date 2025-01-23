@@ -117,3 +117,9 @@ function redirect($url, $statusCode = 302) {
   // Stop further execution of the script
   exit();
 }
+
+function startSession(){
+  if(!isset($_SESSION)){
+    session_start();
+  }
+}

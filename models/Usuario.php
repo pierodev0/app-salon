@@ -91,6 +91,15 @@ class Usuario extends ActiveRecord
         $this->token = Uuid::uuid4()->toString();
     }
     
+    public function comprobarPasswordAndVerificado($password){
+        $resultado = password_verify($password, $this->password);
+
+        if(!$resultado || !$this->confirmado){
+            self::setAlerta('error', 'El password es incorrecto o tu cuenta no ha sido confirmada');
+        } else {
+            return true;
+        }
+    }
 
 
     
