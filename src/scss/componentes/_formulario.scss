@@ -1,6 +1,10 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
+.formulario {
+    margin-top: v.$separacion;
+    width: 100%;
+}
 .campo {
     display: flex;
     margin-bottom: 2rem;

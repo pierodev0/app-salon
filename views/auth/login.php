@@ -1,5 +1,5 @@
 <h1 class="nombre-pagina">Login</h1>
-<h3 class="descripcion-pagina">Inicia sesion con tus datos</h3>
+<p class="descripcion-pagina">Inicia sesion con tus datos</p>
 <form class="formulario" method="post" action="/">
 
     <div class="campo">
