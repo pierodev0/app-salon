@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use Helpers\Hash;
 use Model\Usuario;
 use MVC\Router;
 
@@ -38,6 +39,10 @@ class LoginController{
                 if($resultado){
                     $alertas = Usuario::getAlertas();
                 } else {
+                    //Hashear el password
+                    $usuario->password = Hash::make($usuario->password);
+                    
+                    $usuario->crear();
                 }
                 
            }

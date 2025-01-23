@@ -72,4 +72,7 @@ class Usuario extends ActiveRecord
     }
 
 
+    
+
+
 }
