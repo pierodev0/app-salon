@@ -24,15 +24,15 @@ class LoginController{
 
     public static function crear(Router $router){
         $usuario = new Usuario;
+        $alertas = [];
         if(isMethod('POST')){
            $usuario->sincronizar($_POST);
 
            $alertas = $usuario->validarNuevaCuenta();
-           dump($alertas);
 
         }
 
-       $router->render("auth/crear-cuenta",compact('usuario'));
+       $router->render("auth/crear-cuenta",compact('usuario','alertas'));
     }
 
 }
