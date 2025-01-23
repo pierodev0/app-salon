@@ -56,8 +56,18 @@ class LoginController
 
     public static function olvide(Router $router)
     {
-        $router->render("auth/olvide");
+        $alertas = [];
+        if (isMethod('post')) {
+            $auth = new Usuario($_POST);
+            $alertas = $auth->validarEmail();
+            if(empty($alertas)){
+            }
+        }
+        
+        $alertas = Usuario::getAlertas();
+        $router->render("auth/olvide",compact('alertas'));
     }
+
 
     public static function recuperar()
     {
