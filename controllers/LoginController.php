@@ -63,10 +63,14 @@ class LoginController
             if(empty($alertas)){
                 $usuario = Usuario::where('email', $auth->email);
                 if($usuario && $usuario->confirmado === '1'){
+                   //Generar un token unico
                    $usuario->crearToken();
                    $usuario->guardar();
 
                    //Enviar email
+                   $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                   $email->enviarInstrucciones();
+
                    Usuario::setAlerta('exito', 'Revisa tu email para reiniciar tu password');
 
                 } else {
