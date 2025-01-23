@@ -1,18 +1,30 @@
 @use 'variables' as v;
 
 /** Media Queries **/
-@mixin telefono {
-    @media (min-width: v.$telefono) {
+@mixin sm {
+    @media (min-width: v.$sm) {
         @content;
     }
 }
-@mixin tablet {
-    @media (min-width: v.$tablet) {
+@mixin md {
+    @media (min-width: v.$md) {
         @content;
     }
 }
-@mixin desktop {
-    @media (min-width: v.$desktop) {
+@mixin lg {
+    @media (min-width: v.$lg) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: v.$xl) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media (min-width: v.$xxl) {
         @content;
     }
 }
@@ -35,7 +47,7 @@
     width: 100%;
     margin: 5rem 0;
 
-    @include tablet {
+    @include md {
         width: auto;
     }
     &:hover {
