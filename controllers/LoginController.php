@@ -30,6 +30,11 @@ class LoginController{
 
            $alertas = $usuario->validarNuevaCuenta();
 
+           if(empty($alertas)){
+                //Verificar que el usuario no este registrado
+                
+           }
+
         }
 
        $router->render("auth/crear-cuenta",compact('usuario','alertas'));
