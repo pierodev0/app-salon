@@ -49,8 +49,10 @@ class LoginController{
                     //Enviar email
                     $email = new Email ($usuario->email,$usuario->nombre,$usuario->token);
                     $email->enviarConfirmacion();
-                    dump("Enviado");
-                    $usuario->crear();
+                    $resultado = $usuario->crear();
+                    if($resultado){
+                       redirect('/mensaje');
+                    }
                 }
                 
            }
@@ -58,6 +60,10 @@ class LoginController{
         }
 
        $router->render("auth/crear-cuenta",compact('usuario','alertas'));
+    }
+
+    public static function mensaje(Router $router){
+        $router->render("auth/mensaje");
     }
 
 }
