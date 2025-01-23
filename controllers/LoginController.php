@@ -84,9 +84,15 @@ class LoginController
     }
 
 
-    public static function recuperar()
+    public static function recuperar(Router $router)
     {
-        echo "Desde recuperar    ";
+        $alertas = [];
+        if(isMethod('POST')){
+            $auth = new Usuario($_POST);
+            // $alertas = $auth->validarPassword();
+        }
+        $alertas = Usuario::getAlertas();
+        $router->render("auth/recuperar",compact('alertas'));
     }
 
     public static function crear(Router $router)
