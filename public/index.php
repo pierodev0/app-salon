@@ -20,7 +20,6 @@ $router->post("/recuperar",[LoginController::class, 'recuperar']);
 
 
 //Crear cuenta
-
 $router->get("/crear-cuenta",[LoginController::class, 'crear']);
 $router->post("/crear-cuenta",[LoginController::class, 'crear']);
 
