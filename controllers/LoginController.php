@@ -9,7 +9,14 @@ use MVC\Router;
 class LoginController{
 
     public static function index(Router $router){
-        $router->render("auth/login");
+        $alertas = [];
+        if(isMethod('post')){
+            $auth = new Usuario($_POST);
+            $alertas = $auth->validarLogin();           
+
+        }
+        $alertas = Usuario::getAlertas();
+        $router->render("auth/login",compact('alertas'));
     }
 
     public static function logout(){

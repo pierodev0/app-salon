@@ -64,6 +64,20 @@ class Usuario extends ActiveRecord
         return self::$alertas;
     }
 
+    public function validarLogin(){
+        if(!$this->email){
+            self::setAlerta('error', 'El email es obligatorio');
+        }
+
+        if($this->email &&!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
+            self::setAlerta('error', 'El email es invalido');
+        }
+        if(!$this->password){
+            self::setAlerta('error', 'El password es obligatorio');
+        }
+        return self::$alertas;
+    }
+
     public function existeUsuario(){
         $resultado = self::where('email', $this->email);
         if($resultado){
@@ -76,6 +90,7 @@ class Usuario extends ActiveRecord
     public function crearToken(){
         $this->token = Uuid::uuid4()->toString();
     }
+    
 
 
     
