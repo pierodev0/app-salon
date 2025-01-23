@@ -115,6 +115,26 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+    
+    /**
+     * Searches for a record in the database where the specified column matches the given value.
+     *
+     * @param string $column The column name to search for the value.
+     * @param string $value The value to search for in the specified column.
+     * @return mixed The first record found that matches the criteria, or null if no record is found.
+     */
+
+    public static function where($column,$value)
+    {
+        $tabla = static::$tabla;
+        
+        $column = self::$db->escape_string($column);
+        $value = self::$db->escape_string($value);
+
+        $query = "SELECT * FROM {$tabla} WHERE {$column} = '{$value}'";
+        $resultado = self::consultarSQL($query);
+        return array_shift($resultado);
+    }
 
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
