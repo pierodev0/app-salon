@@ -25,6 +25,7 @@ class LoginController{
     public static function crear(Router $router){
         $usuario = new Usuario;
         $alertas = [];
+
         if(isMethod('POST')){
            $usuario->sincronizar($_POST);
 
@@ -32,6 +33,12 @@ class LoginController{
 
            if(empty($alertas)){
                 //Verificar que el usuario no este registrado
+                $resultado = $usuario->existeUsuario();
+                
+                if($resultado){
+                    $alertas = Usuario::getAlertas();
+                } else {
+                }
                 
            }
 

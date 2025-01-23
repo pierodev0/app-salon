@@ -62,5 +62,14 @@ class Usuario extends ActiveRecord
         return self::$alertas;
     }
 
+    public function existeUsuario(){
+        $resultado = self::where('email', $this->email);
+        if($resultado){
+            self::setAlerta('error', 'El usuario ya esta registrado');
+        }
+
+        return $resultado;
+    }
+
 
 }
