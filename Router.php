@@ -2,6 +2,8 @@
 
 namespace MVC;
 
+use Helpers\JsonResponse;
+
 class Router
 {
     public array $getRoutes = [];
@@ -47,8 +49,9 @@ class Router
              } else {
                 echo "No existe el metodo " . $fn[1] . " en el controlador : " . $fn[0];
              }
-        } else {
-            echo "Página No Encontrada o Ruta no válida";
+        } else {            
+            JsonResponse::data(["mensaje" => "Página No Encontrada o Ruta no válida"])->status(404)->send();
+            // echo "Página No Encontrada o Ruta no válida";
         }
     }
 

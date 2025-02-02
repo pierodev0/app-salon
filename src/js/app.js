@@ -169,12 +169,13 @@ function seleccionarFecha() {
     const inpuFecha = document.querySelector('#fecha');
     inpuFecha.addEventListener('input', (e) => {
         const dia = new Date(e.target.value).getUTCDay();
-        if ([0, 6].includes(dia)) {
-            inpuFecha.value = '';
-            mostrarAlerta('Fines de semana no permitido', 'error');
-        } else {
-            cita.fecha = e.target.value;
-        }
+        // if ([0, 6].includes(dia)) {
+        //     inpuFecha.value = '';
+        //     mostrarAlerta('Fines de semana no permitido', 'error');
+        // } else {
+        //     cita.fecha = e.target.value;
+        // }
+        cita.fecha = e.target.value;
     })
 
 }
@@ -186,12 +187,13 @@ function seleccionarHora() {
         const horaCita = e.target.value;
         const hora = horaCita.split(":")[0];
 
-        if (hora < 9 || hora > 21) {
-            e.target.value = '';
-            mostrarAlerta('Hora no valida', 'error');
-        } else {
-            cita.hora = e.target.value;
-        }
+        // if (hora < 9 || hora > 21) {
+        //     e.target.value = '';
+        //     mostrarAlerta('Hora no valida', 'error');
+        // } else {
+        //     cita.hora = e.target.value;
+        // }
+        cita.hora = e.target.value;
     });
 }
 
@@ -269,10 +271,9 @@ function mostrarResumen() {
     const year = fechaObj.getFullYear();
 
     const fechaUTC = new Date(Date.UTC(year, mes, dia));
-
+    
     const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-    const fechaFormateada = fechaUTC.toLocaleDateString('es-AR', opciones);
-
+    const fechaFormateada = fechaUTC.toLocaleDateString('es-PE', opciones);
     const fechaCliente = document.createElement('P');
     fechaCliente.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`;
 
@@ -292,6 +293,17 @@ function mostrarResumen() {
     resumen.appendChild(botonReservar);
 }
 
-function reservarCita(){
-    
+ async function reservarCita(){
+    const dataForm = new FormData();
+    const idServicios = cita.servicios.map(servicio => servicio.id);
+
+    dataForm.append('nombre', cita.nombre);
+    dataForm.append('fecha', cita.fecha);
+    dataForm.append('hora', cita.hora);
+    dataForm.append('servicios', idServicios);
+
+    //Peticion hacia la api
+    const response = await fetch(`${URL}/api/citas`,{method: 'POST',body: dataForm});
+    const data = await response.json();
+    console.log("🚀 ~ reservarCita ~ data:", data)
 }
