@@ -29,6 +29,8 @@ class LoginController
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['apellido'] = $usuario->apellido;
+                        $_SESSION['telefono'] = $usuario->telefono;
                         $_SESSION['login'] = true;
 
                         if ($usuario->admin === '1') {

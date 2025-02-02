@@ -4,6 +4,7 @@ const pasoFinal = 3;
 const URL = 'http://localhost:3000';
 
 const cita = {
+    id : '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -23,6 +24,7 @@ function iniciarApp() {
     paginaSiguiente();
     consultarAPI();
     nombreCliente();
+    idCliente();
     seleccionarFecha();
     seleccionarHora();
     // mostrarResumen();
@@ -128,7 +130,6 @@ function mostrarServicios(data) {
         servicioDiv.dataset.idServicio = id;
         servicioDiv.onclick = function () {
             seleccionarServicio(servicio);
-            console.log(cita)
         }
 
         servicioDiv.appendChild(nombreServicio);
@@ -164,7 +165,10 @@ function nombreCliente() {
     const nombre = document.querySelector('#nombre').value;
     cita.nombre = nombre;
 }
-
+function idCliente() {
+    const id = document.querySelector('#id').value;
+    cita.id = id;
+}
 function seleccionarFecha() {
     const inpuFecha = document.querySelector('#fecha');
     inpuFecha.addEventListener('input', (e) => {
@@ -297,7 +301,7 @@ function mostrarResumen() {
     const dataForm = new FormData();
     const idServicios = cita.servicios.map(servicio => servicio.id);
 
-    dataForm.append('nombre', cita.nombre);
+    dataForm.append('usuarioId', cita.id);
     dataForm.append('fecha', cita.fecha);
     dataForm.append('hora', cita.hora);
     dataForm.append('servicios', idServicios);

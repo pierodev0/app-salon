@@ -37,8 +37,12 @@ function dump($mensaje, $modo = 0)
   $object = json_encode($mensaje);
   print_r('<script>console.log(' . $object . ')</script>');
 }
-
-// Escapa / Sanitizar el HTML
+/**
+ * Sanitiza el HTML (convierte etiquetas HTML a entidades)
+ *
+ * @param string $html El string que se va a sanitizar
+ * @return string El string sanitizado
+ */
 function s($html) : string {
     $s = htmlspecialchars($html);
     return $s;
