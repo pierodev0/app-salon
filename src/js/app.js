@@ -4,7 +4,7 @@ const pasoFinal = 3;
 const URL = 'http://localhost:3000';
 
 const cita = {
-    id : '',
+    id: '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -232,7 +232,7 @@ function mostrarResumen() {
         mostrarAlerta('Faltan datos de Servicios, Fecha u Hora', 'error');
 
         return;
-    } 
+    }
 
     // Formatear el div de resumen
     const { nombre, fecha, hora, servicios } = cita;
@@ -275,7 +275,7 @@ function mostrarResumen() {
     const year = fechaObj.getFullYear();
 
     const fechaUTC = new Date(Date.UTC(year, mes, dia));
-    
+
     const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     const fechaFormateada = fechaUTC.toLocaleDateString('es-PE', opciones);
     const fechaCliente = document.createElement('P');
@@ -297,7 +297,7 @@ function mostrarResumen() {
     resumen.appendChild(botonReservar);
 }
 
- async function reservarCita(){
+async function reservarCita() {
     const dataForm = new FormData();
     const idServicios = cita.servicios.map(servicio => servicio.id);
 
@@ -307,7 +307,31 @@ function mostrarResumen() {
     dataForm.append('servicios', idServicios);
 
     //Peticion hacia la api
-    const response = await fetch(`${URL}/api/citas`,{method: 'POST',body: dataForm});
-    const data = await response.json();
-    console.log("🚀 ~ reservarCita ~ data:", data)
+    try {
+        const response = await fetch(`${URL}/api/citas`, { method: 'POST', body: dataForm });
+        if(!response.ok) throw 'Error al crear la cita';
+        const data = await response.json();
+        const { resultado } = data;
+
+        if (resultado) {
+
+            Swal.fire({
+                icon: "success",
+                title: "Cita creada",
+                text: "Tu cita fue creada correctamente",
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.reload();
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error al crear la cita",
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.reload();
+        });
+    }
 }
