@@ -22,6 +22,7 @@ function iniciarApp() {
     paginaAnterior();
     paginaSiguiente();
     consultarAPI();
+    nombreCliente();
 }
 function mostrarSeccion() {
     //Ocultar la seccion anterios
@@ -122,6 +123,7 @@ function mostrarServicios(data){
         servicioDiv.dataset.idServicio = id;
         servicioDiv.onclick = function() {
             seleccionarServicio(servicio);
+            console.log(cita)
         }
 
         servicioDiv.appendChild(nombreServicio);
@@ -150,4 +152,10 @@ function seleccionarServicio(servicio) {
         cita.servicios = [...servicios, servicio];
         divServicio.classList.add('seleccionado');
     }
+}
+
+
+function nombreCliente(){
+    const nombre = document.querySelector('#nombre').value;
+    cita.nombre = nombre;
 }
