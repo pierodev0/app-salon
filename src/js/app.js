@@ -23,6 +23,8 @@ function iniciarApp() {
     paginaSiguiente();
     consultarAPI();
     nombreCliente();
+    seleccionarFecha();
+    seleccionarHora();
 }
 function mostrarSeccion() {
     //Ocultar la seccion anterios
@@ -94,21 +96,21 @@ function paginaSiguiente() {
 }
 
 
-async function consultarAPI(){
+async function consultarAPI() {
     try {
-     const response = await fetch(`${URL}/api/servicios`);
-     const data = await response.json();
-     mostrarServicios(data);
+        const response = await fetch(`${URL}/api/servicios`);
+        const data = await response.json();
+        mostrarServicios(data);
     } catch (error) {
         console.log(error)
     }
 }
 
 
-function mostrarServicios(data){
+function mostrarServicios(data) {
     const servicios = document.querySelector('#servicios');
     data.forEach(servicio => {
-        const {id,nombre,precio} = servicio;
+        const { id, nombre, precio } = servicio;
 
         const nombreServicio = document.createElement('p');
         nombreServicio.classList.add('nombre-servicio');
@@ -121,7 +123,7 @@ function mostrarServicios(data){
         const servicioDiv = document.createElement('div');
         servicioDiv.classList.add('servicio');
         servicioDiv.dataset.idServicio = id;
-        servicioDiv.onclick = function() {
+        servicioDiv.onclick = function () {
             seleccionarServicio(servicio);
             console.log(cita)
         }
@@ -143,10 +145,10 @@ function seleccionarServicio(servicio) {
     const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
 
     // Comprobar si un servicio ya fue agregado
-    if ( servicios.some( agregado => agregado.id === id ) ) {
+    if (servicios.some(agregado => agregado.id === id)) {
         // Eliminarlo
-        cita.servicios = servicios.filter( agregado => agregado.id !== id );
-        divServicio.classList.remove('seleccionado');   
+        cita.servicios = servicios.filter(agregado => agregado.id !== id);
+        divServicio.classList.remove('seleccionado');
     } else {
         // Agregarlo
         cita.servicios = [...servicios, servicio];
@@ -155,7 +157,57 @@ function seleccionarServicio(servicio) {
 }
 
 
-function nombreCliente(){
+function nombreCliente() {
     const nombre = document.querySelector('#nombre').value;
     cita.nombre = nombre;
 }
+
+function seleccionarFecha() {
+    const inpuFecha = document.querySelector('#fecha');
+    inpuFecha.addEventListener('input', (e) => {
+        const dia = new Date(e.target.value).getUTCDay();
+        if ([0, 6].includes(dia)) {
+            inpuFecha.value = '';
+            mostrarAlerta('Fines de semana no permitido', 'error');
+        } else {
+            cita.fecha = e.target.value;
+        }
+    })
+
+}
+
+function seleccionarHora() {
+    const inputHora = document.querySelector('#hora');
+    inputHora.addEventListener('input', function(e) {
+
+        const horaCita = e.target.value;
+        const hora = horaCita.split(":")[0];
+
+        if (hora < 9 || hora >21) {
+            e.target.value = '';
+            mostrarAlerta('Hora no valida', 'error');
+        } else {
+            cita.hora = e.target.value;
+        }
+    });
+}
+
+function mostrarAlerta(mensaje, tipo) {
+    const backgroundAlerta = tipo === 'error' ? 'red' : 'green';
+
+    Toastify({
+        text: mensaje,
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: backgroundAlerta,
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
+
+}
+

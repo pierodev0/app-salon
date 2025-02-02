@@ -23,11 +23,11 @@
             </div>
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha">
+                <input type="date" id="fecha" name="fecha" min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
             </div>
             <div class="campo">
                 <label for="hora">Hora</label>
-                <input type="time" id="hora" name="hora">
+                <input type="time" id="hora" name="hora" min="">
             </div>
         </form>
     </div>
@@ -50,5 +50,10 @@
 </div>
 
 <?php
-$script = '<script src="build/js/app.js"></script>';
+$style = '<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+';
+$script = '
+<script src="build/js/app.js"></script> 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>';
+
 ?>
