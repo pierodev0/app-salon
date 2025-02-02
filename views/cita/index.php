@@ -6,7 +6,7 @@
         <button type="button" data-paso="2">Información Cita</button>
         <button type="button" data-paso="3">Resumen</button>
     </div>
-    
+
     <div id="paso-1" class="seccion">
         <h2>Servicios</h2>
         <p class="text-center">Elige los servicios que deseas</p>
@@ -29,20 +29,26 @@
                 <label for="hora">Hora</label>
                 <input type="time" id="hora" name="hora">
             </div>
-            <input type="submit" class="boton" value="Siguiente">
         </form>
     </div>
-    <div class="seccion" id="paso-3">
+    <div id="paso-3" class="seccion">
         <h2>Resumen</h2>
         <p class="text-center">Verifica que la información sea correcta</p>
     </div>
+
+
     <div class="paginacion">
-        <button id="anterior" class="boton">&laquo; Anterior</button>
-        <button id="siguiente" class="boton"> Siguiente &raquo;</button>
+        <button
+            id="anterior"
+            class="boton">&laquo; Anterior</button>
+
+        <button
+            id="siguiente"
+            class="boton">Siguiente &raquo;</button>
 
     </div>
 </div>
 
-<?php 
-    $script = '<script src="build/js/app.js"></script>';
+<?php
+$script = '<script src="build/js/app.js"></script>';
 ?>
