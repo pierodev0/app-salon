@@ -25,6 +25,9 @@
     width: 95%;
     margin: 0 auto;
     padding: 3rem 0;
+    @include m.md {
+      overflow-y: auto;
+    }
     @include m.lg {
       grid-column: span 2;
     }
