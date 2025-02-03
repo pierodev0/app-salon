@@ -16,6 +16,8 @@ class ServicioController {
         {
             echo "Guardando...";
         }
+
+        $router->render('servicios/crear');
     }
     
     public static function actualizar(Router $router)
