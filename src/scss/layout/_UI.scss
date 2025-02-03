@@ -53,3 +53,17 @@
     margin: 0;
   }
 }
+
+.barra-servicios {
+  margin-bottom: v.$separacion;
+
+  @include m.md {
+      display:flex;
+      justify-content: space-between;
+  }
+
+  .boton {
+      margin: 0 0 1rem 0;
+      width: 100%;
+  }
+}
