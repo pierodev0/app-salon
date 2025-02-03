@@ -1,5 +1,9 @@
 <h1 class="nombre-pagina">Crear nueva Cita</h1>
 <p class="descripcion-pagina">Elige tus servicios</p>
+<div class="barra">
+    <p>Hola : <?= $_SESSION['nombre'] ?? '' ?></p>
+    <a class="boton" href="/logout">Cerrar Sesion</a>
+</div>
 <div class="app">
     <div class="tabs">
         <button class="actual" type="button" data-paso="1">Servicios</button>
