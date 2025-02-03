@@ -6,8 +6,10 @@ include_once __DIR__ . '/../templates/barra.php';
     <ul class="citas">
         <?php
         $idCita = 0;
-        foreach ($citas as $cita): ?>
-            <?php if ($idCita !== $cita->id) : ?>
+        foreach ($citas as $key=>$cita): ?>
+            <?php if ($idCita !== $cita->id) : 
+                    $total = 0;
+                ?>
                 <li>
                     <p>Id: <span><?= $cita->id ?></span></p>
                 </li>
@@ -25,10 +27,17 @@ include_once __DIR__ . '/../templates/barra.php';
                 </li>
                 <h3>Servicios</h3>
             <?php $idCita = $cita->id;
-            endif; ?>
+            endif;  $total+= $cita->precio?>
             <p class="servicio">
                 <?= $cita->servicio. " " . $cita->precio ?>
             </p>
+            <?php 
+            $actual = $cita->id;
+            $proximo = $citas[$key + 1]->id ?? 0;
+            ?>
+            <?php if(esUltimo($actual,$proximo)):?>
+               <p class="total">Total: <span>$<?= $total ?></span></p>
+            <?php endif;?>
         <?php endforeach; ?>     
     </ul>
 </div>

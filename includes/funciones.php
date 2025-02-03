@@ -49,6 +49,8 @@ function s($html): string
   return $s;
 }
 
+
+
 function asset($path)
 {
   $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://";  // Verifica si es HTTPS
@@ -137,4 +139,12 @@ function isAuth()
   if (!isset($_SESSION['login'])) {
     header('Location: /');
   }
+}
+
+function esUltimo($actual,$proximo)
+{
+  if($actual !== $proximo){
+    return true;
+  }
+  return false;
 }

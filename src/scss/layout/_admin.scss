@@ -17,12 +17,13 @@
             font-weight: v.$regular;
             color: v.$blanco;
         }
+        
     }
 }
 
 .servicios {
     @extend .citas;
-
+    
     .acciones {
         margin: 0;
     }
@@ -30,4 +31,5 @@
     .boton-eliminar {
         margin: 0;
     }
+   
 }
