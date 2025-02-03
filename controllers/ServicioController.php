@@ -10,7 +10,8 @@ class ServicioController
 
     public static function index(Router $router)
     {
-        $router->render('servicios/index');
+        $servicios = Servicio::all();
+        $router->render('servicios/index', compact('servicios'));
     }
 
     public static function crear(Router $router)
@@ -32,7 +33,24 @@ class ServicioController
 
     public static function actualizar(Router $router)
     {
-        echo "ServicioController actualizar";
+        $id = validarORedireccionar($_GET["id"],'/servicios');
+
+        $servicio = Servicio::find($id);
+        if(!$servicio) redirect('/servicios');
+
+        $alertas = [];
+
+        if (isMethod('post')) {
+            $servicio->sincronizar($_POST);
+            $alertas = $servicio->validar();
+            if (empty($alertas)) {
+                $servicio->guardar();
+                redirect('/servicios');
+            }
+        }
+
+        $alertas = Servicio::getAlertas();
+        $router->render('servicios/actualizar', compact('servicio', 'alertas'));
     }
 
     public static function eliminar(Router $router)
