@@ -2,6 +2,16 @@
 <?php
 include_once __DIR__ . '/../templates/barra.php';
 ?>
+<div class="busqueda">
+    <form action="" class="formulario">
+        <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha" value="<?= s($fecha) ?>">
+        </div>
+    </form>
+</div>
+
+
 <div class="citas-admin">
     <ul class="citas">
         <?php
