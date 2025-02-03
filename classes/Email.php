@@ -91,7 +91,7 @@ class Email
         <h2>¡Gracias por registrarte!</h2>
         <p>Por favor confirma tu correo electrónico para que puedas comenzar a disfrutar de todos los servicios de
             BarberShop</p>
-        <a href='". asset("/confirmar-cuenta?token=" . $this->token)."'><button>Verificar</button></a>
+        <a href='".$_ENV['APP_URL'] ."/confirmar-cuenta?token=" . $this->token."'><button>Verificar</button></a>
         <p>Si tú no te registraste en BarberShop, por favor ignora este correo electrónico.</p>
         <div><p></p></div>
         <p><span>Este correo electrónico fue enviado desde una dirección solamente de notificaciones que no puede aceptar correo electrónico entrante. Por favor no respondas a este mensaje.</span></p>
@@ -107,15 +107,15 @@ class Email
         //Crear el objeto de email
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '74c2e6df004524';
-        $mail->Password = '3ca3ef1deae8bc';
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['EMAIL_USER'];
+        $mail->Password = $_ENV['EMAIL_PASSWORD'];
 
         $mail->setFrom('cuentas@appsalon.com');
         $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
-        $mail->Subject = 'Restablece tu contraseña';
+        $mail->Subject = 'Reestablece tu contraseña';
 
         //Set HTML
         $mail->isHTML(TRUE);
@@ -174,7 +174,7 @@ class Email
         <h2>Restablece tu contraseña</h2>
         <p>Hemos recibido una solicitud para restablecer tu contraseña en BarberShop. Haz clic en el enlace para
             restablecer.</p>
-        <a href='". asset("/recuperar?token=" . $this->token)."'><button>Restablecer</button></a>
+        <a href='".$_ENV['APP_URL'] ."/recuperar?token=" . $this->token."'><button>Restablecer</button></a>
         <p>Si tú no solicitaste restablecer tu contraseña, por favor ignora este correo electrónico.</p>
         <div><p></p></div>
         <p><span>Este correo electrónico fue enviado desde una dirección solamente de notificaciones que no puede aceptar correo electrónico entrante. Por favor no respondas a este mensaje.</span></p>
