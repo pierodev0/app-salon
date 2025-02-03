@@ -4,3 +4,4 @@ pnpm-lock.yaml
 php_error_log
 vendor/
 public/imagenes/
+.env
