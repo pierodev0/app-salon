@@ -25,17 +25,17 @@ function dump($mensaje, $modo = 0)
     echo "<pre style='background-color: #000; color: #fff;'>";
     var_dump($mensaje);
     echo "</pre>";
-    exit();
   } else {
     echo "<pre>";
     var_dump($mensaje);
     echo "</pre>";
-    exit();
   }
 
   //Imprimir array en la consola
   $object = json_encode($mensaje);
   print_r('<script>console.log(' . $object . ')</script>');
+
+  exit;
 }
 /**
  * Sanitiza el HTML (convierte etiquetas HTML a entidades)
