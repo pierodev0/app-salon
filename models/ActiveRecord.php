@@ -1,5 +1,8 @@
 <?php
 namespace Model;
+
+use mysqli_sql_exception;
+
 class ActiveRecord {
 
     // Base DE DATOS
@@ -156,11 +159,18 @@ class ActiveRecord {
         $query .= "') ";
 
         // Resultado de la consulta
-        $resultado = self::$db->query($query);
-        return [
-           'resultado' =>  $resultado,
-           'id' => self::$db->insert_id
-        ];
+        try {
+            $resultado = self::$db->query($query);
+            return [
+                'resultado' =>  $resultado,
+                'id' => self::$db->insert_id
+            ];
+        } catch(mysqli_sql_exception){
+            return [
+                'resultado' =>  false,
+                'id' => 0
+            ];
+        }
     }
 
     // Actualizar el registro
