@@ -35,7 +35,6 @@ class LoginController
 
                         if ($usuario->admin === '1') {
                             $_SESSION['admin'] = $usuario->admin ?? null;
-                            dump("Admin");
                             redirect('/admin');
                         } else {
                             redirect('/cita');
