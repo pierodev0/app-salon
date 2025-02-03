@@ -43,9 +43,10 @@ function dump($mensaje, $modo = 0)
  * @param string $html El string que se va a sanitizar
  * @return string El string sanitizado
  */
-function s($html) : string {
-    $s = htmlspecialchars($html);
-    return $s;
+function s($html): string
+{
+  $s = htmlspecialchars($html);
+  return $s;
 }
 
 function asset($path)
@@ -95,21 +96,22 @@ function isMethod($method)
 
 function validarORedireccionar($parametro, $urlRedireccion): int
 {
-    // Validar si el parámetro existe y es un entero válido
-    $id = filter_var($parametro, FILTER_VALIDATE_INT);
-    
-    if ($id === false) {
-        // Redirigir si el ID no es válido
-        header("Location: $urlRedireccion");
-        exit;
-    }
+  // Validar si el parámetro existe y es un entero válido
+  $id = filter_var($parametro, FILTER_VALIDATE_INT);
 
-    return $id;
+  if ($id === false) {
+    // Redirigir si el ID no es válido
+    header("Location: $urlRedireccion");
+    exit;
+  }
+
+  return $id;
 }
 
-function redirect($url, $statusCode = 302) {
+function redirect($url, $statusCode = 302)
+{
   if (!filter_var($url, FILTER_VALIDATE_URL) && !filter_var($url, FILTER_VALIDATE_DOMAIN)) {
-      throw new InvalidArgumentException("The provided URL is not valid.");
+    throw new InvalidArgumentException("The provided URL is not valid.");
   }
 
   // Set the HTTP status code
@@ -122,8 +124,17 @@ function redirect($url, $statusCode = 302) {
   exit();
 }
 
-function startSession(){
-  if(!isset($_SESSION)){
+function startSession()
+{
+  if (!isset($_SESSION)) {
     session_start();
+  }
+}
+
+
+function isAuth()
+{
+  if (!isset($_SESSION['login'])) {
+    header('Location: /');
   }
 }
