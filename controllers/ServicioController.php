@@ -1,30 +1,40 @@
 <?php
+
 namespace Controllers;
 
+use Model\Servicio;
 use MVC\Router;
 
-class ServicioController {
-    
+class ServicioController
+{
+
     public static function index(Router $router)
     {
         $router->render('servicios/index');
     }
-    
+
     public static function crear(Router $router)
     {
-        if(isMethod('post'))
-        {
-            echo "Guardando...";
+        $servicio = new Servicio;
+        $alertas = [];
+        if (isMethod('post')) {
+            $servicio->sincronizar($_POST);
+            $alertas = $servicio->validar();
+            if (empty($alertas)) {
+                $servicio->guardar();
+                redirect('/servicios');
+            }
         }
 
-        $router->render('servicios/crear');
+        $alertas = Servicio::getAlertas();
+        $router->render('servicios/crear', compact('servicio', 'alertas'));
     }
-    
+
     public static function actualizar(Router $router)
     {
         echo "ServicioController actualizar";
     }
-    
+
     public static function eliminar(Router $router)
     {
         echo "ServicioController eliminar";
