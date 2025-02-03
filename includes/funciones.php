@@ -5,11 +5,11 @@ function prettyPrint($mensaje, $modo = 0)
 {
   if ($modo == 0) {
     echo "<pre style='background-color: #000; color: #fff;'>";
-    var_export($mensaje);
+    var_dump($mensaje);
     echo "</pre>";
   } else {
     echo "<pre>";
-    var_dump($mensaje);
+    var_export($mensaje);
     echo "</pre>";
   }
 
@@ -27,7 +27,7 @@ function dump($mensaje, $modo = 0)
     echo "</pre>";
   } else {
     echo "<pre>";
-    var_dump($mensaje);
+    var_export($mensaje);
     echo "</pre>";
   }
 
