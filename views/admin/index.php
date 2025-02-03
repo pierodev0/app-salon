@@ -49,6 +49,10 @@ include_once __DIR__ . '/../templates/barra.php';
             ?>
             <?php if(esUltimo($actual,$proximo)):?>
                <p class="total">Total: <span>$<?= $total ?></span></p>
+               <form action="/api/eliminar" method="post">
+                <input type="hidden" name="id" value="<?= $cita->id ?>">
+                <input type="submit" class="boton-eliminar" value="Eliminar">
+               </form>
             <?php endif;?>
         <?php endforeach; ?>     
     </ul>

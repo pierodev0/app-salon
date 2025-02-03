@@ -41,4 +41,18 @@ class APIController
         //Retorna la respuesta
         JsonResponse::data(['resultado' => $resultado])->send();
     }
+
+
+    public static function eliminar(){
+        if(isMethod('post')){
+            $id = $_POST['id'];
+            $id = validarORedireccionar($id, '/admin');
+                        
+            $cita = Cita::find($id);
+            if(!$cita) redirect('/admin');
+
+            $cita->eliminar();
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
 }
