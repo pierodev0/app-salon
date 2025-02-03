@@ -27,6 +27,9 @@
     padding: 3rem 0;
     @include m.md {
       overflow-y: auto;
+      &::-webkit-scrollbar {
+       display: none;
+      }
     }
     @include m.lg {
       grid-column: span 2;

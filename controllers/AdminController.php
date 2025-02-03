@@ -8,7 +8,13 @@ class AdminController
 {
     public static function index(Router $router)
     {
-        $fecha = date('Y-m-d');
+        $fecha = $_GET["fecha"] ?? date('Y-m-d');
+        $fechaArray = explode('-', $fecha);
+
+        if(!checkdate($fechaArray[1], $fechaArray[2], $fechaArray[0])){
+            redirect('404');
+        }
+
         //Consultar la base de datos
         $consulta = "SELECT citas.id, citas.hora, CONCAT( usuarios.nombre, ' ', usuarios.apellido) as cliente, ";
         $consulta .= " usuarios.email, usuarios.telefono, servicios.nombre as servicio, servicios.precio  ";
