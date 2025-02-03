@@ -10,18 +10,18 @@ include_once __DIR__ . '/../templates/barra.php';
         </div>
     </form>
 </div>
-<?php if(count($citas) === 0):?>
+<?php if (count($citas) === 0): ?>
     <h2>No hay citas en esta fecha</h2>
-<?php endif;?>
+<?php endif; ?>
 
 <div class="citas-admin">
     <ul class="citas">
         <?php
         $idCita = 0;
-        foreach ($citas as $key=>$cita): ?>
-            <?php if ($idCita !== $cita->id) : 
-                    $total = 0;
-                ?>
+        foreach ($citas as $key => $cita): ?>
+            <?php if ($idCita !== $cita->id) :
+                $total = 0;
+            ?>
                 <li>
                     <p>Id: <span><?= $cita->id ?></span></p>
                 </li>
@@ -39,25 +39,45 @@ include_once __DIR__ . '/../templates/barra.php';
                 </li>
                 <h3>Servicios</h3>
             <?php $idCita = $cita->id;
-            endif;  $total+= $cita->precio?>
+            endif;
+            $total += $cita->precio ?>
             <p class="servicio">
-                <?= $cita->servicio. " " . $cita->precio ?>
+                <?= $cita->servicio . " " . $cita->precio ?>
             </p>
-            <?php 
+            <?php
             $actual = $cita->id;
             $proximo = $citas[$key + 1]->id ?? 0;
             ?>
-            <?php if(esUltimo($actual,$proximo)):?>
-               <p class="total">Total: <span>$<?= $total ?></span></p>
-               <form action="/api/eliminar" method="post">
-                <input type="hidden" name="id" value="<?= $cita->id ?>">
-                <input type="submit" class="boton-eliminar" value="Eliminar">
-               </form>
-            <?php endif;?>
-        <?php endforeach; ?>     
+            <?php if (esUltimo($actual, $proximo)): ?>
+                <p class="total">Total: <span>$<?= $total ?></span></p>
+                <form action="/api/eliminar" method="post" id="formEliminar">
+                    <input type="hidden" name="id" value="<?= $cita->id ?>">
+                    <input type="submit" class="boton-eliminar" value="Eliminar">
+                </form>
+            <?php endif; ?>
+        <?php endforeach; ?>
     </ul>
 </div>
 
-<?php 
-    $script = '<script src="build/js/buscador.js"></script>';
+<?php
+$script = '<script src="build/js/buscador.js"></script><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
 ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formEliminar = document.querySelector("#formEliminar")
+        formEliminar.addEventListener('submit', (e) => {
+            e.preventDefault();
+            Swal.fire({
+                icon: "warning",
+                title: "Quieres eliminar la cita?",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formEliminar.submit();
+                }
+            })
+        })
+    })
+</script>
