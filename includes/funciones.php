@@ -141,6 +141,13 @@ function isAuth()
   }
 }
 
+function isAdmin()
+{
+  if (!isset($_SESSION['admin'])) {
+    header('Location: /');
+  }
+}
+
 function esUltimo($actual,$proximo)
 {
   if($actual !== $proximo){
